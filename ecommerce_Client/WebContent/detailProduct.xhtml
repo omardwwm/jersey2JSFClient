@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>DETAIL DU PRODUIT</title>
+</head>
+
+<body>
+	<!-- DECLARATION DU TEMPLATE DONT LA PAGE EST CLIENTE -->
+	<ui:composition template="/resources/template/layout.xhtml">
+
+		<!-- Redefinition de la zone 'content' du layout  -->
+		<ui:define name="content">
+			<f:view>
+				<h:form>
+					<h:commandLink action="articles">
+						<h:outputText value="Retourner sur la liste des articles..."></h:outputText>
+					</h:commandLink>
+				</h:form>
+				<h:form>
+					<h:panelGrid columns="3" cellpadding="2" cellspacing="2">
+
+					</h:panelGrid>
+				</h:form>
+				<h:form>
+					<h:outputText value="NOM : "></h:outputText>
+					<h:outputText value="#{articlebean.article.nom}"></h:outputText>
+				</h:form>
+				<h:form>
+					<h:outputText value="PRIX : "></h:outputText>
+					<h:outputText value="#{articlebean.article.prix} Euro"></h:outputText>
+				</h:form>
+				<h:form>
+					<h:outputText value="REMISE : "></h:outputText>
+					<h:outputText value="#{articlebean.article.remise} Euro"></h:outputText>
+				</h:form>
+				<h:form>
+					<h:outputText value="PHOTOS : "></h:outputText>
+					<h:outputText value="#{articlebean.article.photos}"></h:outputText>
+					<ui:repeat var="photo" value="#{articlebean.article.photos}">
+<!-- 						<h:graphicImage url="#{photo}" width="350" height="180" -->
+<!-- 							margin="240" alt="None"></h:graphicImage> -->
+						<h:graphicImage library="images" name="#{photo}" width="300" height="300"></h:graphicImage>
+					</ui:repeat>
+				</h:form>
+				<h:form>
+					<h:commandButton value="Supprimer??"
+						action="#{articlebean.deleteArticle(articlebean.article)}" />
+				</h:form>
+
+			</f:view>
+		</ui:define>
+
+	</ui:composition>
+</body>
+</html>
+
+

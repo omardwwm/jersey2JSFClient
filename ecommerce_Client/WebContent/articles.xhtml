@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+	<!--Intégration du fichier CSS dans la page-->
+	<h:outputStylesheet library="css" name="table-style.css" />
+	<h:outputStylesheet library="css" name="common-style.css" />
+</h:head>
+
+<body>
+	<h:form>
+		<h4>ALLER A LA PAGE DES UTILISATEURS</h4>
+		<h:commandLink action="utilisateurs">
+			<h:outputText value="GERER LES UTILISATEURS"></h:outputText>
+		</h:commandLink>
+	</h:form>
+	<h:form>
+		<h4>Formulaire d'ajout d'un article</h4>
+		<table>
+			<!-- h:inputHidden value="#{userbean2.idUser}" id="hiddenField" /-->
+			<tr>
+				<td>Nom de l'article:</td>
+				<td><h:inputText value="#{articlebean.nom}" required="true"
+						id="nom">
+						<f:validateLength minimum="2" maximum="36" />
+					</h:inputText> <h:message for="nom" style="color:red" /></td>
+			</tr>
+			<tr>
+				<td>Description de votre article:</td>
+				<td><h:inputTextarea value="#{articlebean.description}"
+						required="true" id="description">
+					</h:inputTextarea> <h:message for="description" style="color:red" /></td>
+			</tr>
+			<!--  tr>
+				<td>Profile:</td>
+				<td><h:selectOneRadio value="#{userbean2.genre}"
+						required="true" id="genre">
+						<f:selectItem itemLabel="User" itemValue="homme" />
+						<f:selectItem itemLabel="Admin" itemValue="femme" />
+						<h:message for="genre" style="color:red" />
+					</h:selectOneRadio></td>
+			</tr -->
+			<tr>
+				<td>Prix:</td>
+				<td><h:inputText value="#{articlebean.prix}" required="true"
+						id="prix">
+					</h:inputText> (en Euro) <h:message for="prix" style="color:red" /></td>
+			</tr>
+			<tr>
+				<td>Remise:</td>
+				<td><h:inputText value="#{articlebean.remise}" required="true"
+						id="remise">
+					</h:inputText> <h:message for="remise" style="color:red" /></td>
+			</tr>
+			<tr>
+				<td>Stock:</td>
+				<td><h:inputText value="#{articlebean.stock}" required="true"
+						id="stock">
+					</h:inputText> <h:message for="stock" style="color:red" /></td>
+			</tr>
+			<tr>
+				<td>IsVendable(EST-IL EN VENTE?):</td>
+				<td><h:selectOneRadio value="#{articlebean.isVendable}"
+						required="true" id="isVendable">
+						<f:selectItem itemLabel="OUI" itemValue="true" />
+						<f:selectItem itemLabel="NON" itemValue="false" />
+						<h:message for="isVendable" style="color:red" />
+					</h:selectOneRadio></td>
+			</tr>
+
+			<tr>
+				<td>PHOTOS(liens)</td>
+				<td><h:inputText value="#{articlebean.photos}" required="true"
+						id="photos">
+					</h:inputText> <h:message for="photos" style="color:red" /></td>
+			</tr>
+			<tr>
+				<td>VIDEOS (liens)</td>
+				<td><h:inputText value="#{articlebean.videos}" required="true"
+						id="videos">
+					</h:inputText> <h:message for="videos" style="color:red" /></td>
+			</tr>
+		</table>
+
+		<p>
+			<h:commandButton value="Ajouter" action="#{articlebean.addArticle()}" />
+			<h:commandButton value="Mettre à jour"
+				action="#{userbean2.updateUser()}" />
+			<h:commandButton value="Initialiser"
+				action="#{userbean2.initialize()}" />
+		</p>
+
+		<c:choose>
+			<c:when test="#{userbean2.messageSuccess != ''}">
+				<h:outputText value="#{userbean2.messageSuccess}"
+					style="color:green" />
+			</c:when>
+			<c:otherwise>
+			</c:otherwise>
+		</c:choose>
+		<!-- 		<c:if test="#{userbean2.messageSuccess != ''}"> -->
+		<!-- 			<h:outputText value="#{userbean2.messageSuccess}" style="color:green"/> -->
+		<!-- 		</c:if> -->
+		<!-- 		<c:if test="#{userbean2.messageError != ''}"> -->
+		<!-- 			<h:outputText value="#{userbean2.messageError}" style="color:red"/> -->
+		<!-- 		</c:if> -->
+	</h:form>
+
+	<h:form>
+		<h4>TOUT NOS ARTICLES.... A venir</h4>
+
+		<h:dataTable value="#{articlebean.articles}" var="o"
+			styleClass="order-table" headerClass="order-table-header"
+			rowClasses="order-table-odd-row,order-table-even-row">
+
+			<h:column>
+				<!-- column header -->
+				<f:facet name="header">id</f:facet>
+				<!-- row record -->
+				<h:outputText value="#{o.id}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Nom</f:facet>
+				<h:outputText value="#{o.nom}" />
+			</h:column>
+			<h:column>
+				<!-- column header -->
+				<f:facet name="header">Description</f:facet>
+				<!-- row record -->
+				<h:outputText value="#{o.description}" />
+			</h:column>
+			<h:column>
+				<!-- column header -->
+				<f:facet name="header">Prix</f:facet>
+				<!-- row record -->
+				<h:outputText value="#{o.prix}" />
+			</h:column>
+			<h:column>
+				<!-- column header -->
+				<f:facet name="header">Remise</f:facet>
+				<!-- row record -->
+				<h:outputText value="#{o.remise}" />
+			</h:column>
+			<h:column>
+				<!-- column header -->
+				<f:facet name="header">Disponible ?</f:facet>
+				<!-- row record -->
+				<h:outputText value="#{o.isVendable}" />
+			</h:column>
+			<h:column>
+				<!-- column header -->
+				<f:facet name="header">Photos (Liens)</f:facet>
+				<!-- row record -->
+				<!-- 				<h:graphicImage url="#{articlebean.getPhoto(o)}" width="150" -->
+				<!-- 					height="100" alt="None"></h:graphicImage> -->
+				<h:graphicImage library="images" name="#{articlebean.getPhoto(o)}" width="150"
+					height="100" alt="None"></h:graphicImage>
+			</h:column>
+			<!-- 			<h:column> -->
+			<!-- 				<f:facet name="header">Action//TODO</f:facet> -->
+			<!-- 				<h:commandLink value="Modifier" action="#{userbean2.deleteUser(o)}" /> -->
+			<!-- 			</h:column> -->
+
+			<h:column>
+				<f:facet name="header">Action</f:facet>
+				<h:commandButton value="Supprimer??"
+					action="#{articlebean.deleteArticle(o)}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Action</f:facet>
+
+				<h:commandLink value="Details"
+					action="#{articlebean.getOneArticle(o)}">
+				</h:commandLink>
+
+			</h:column>
+
+		</h:dataTable>
+
+	</h:form>
+	<h:form>
+		<h:panelGrid>
+			<h:dataTable value="#{articlebean.articles}" var="o"
+				styleClass="order-table" headerClass="order-table-header"
+				rowClasses="order-table-odd-row,order-table-even-row">
+				<h:outputText value="testtt" />
+			</h:dataTable>
+		</h:panelGrid>
+	</h:form>
+</body>
+</html>
+
+
